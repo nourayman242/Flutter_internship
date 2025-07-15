@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:login/constants.dart';
+import 'package:login/custom_button.dart';
+import 'package:login/custom_field.dart';
 import 'package:login/signup_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -7,8 +10,10 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundcolor,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -19,14 +24,71 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _header(),
+                    Text(
+                      'Welcome Back!',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      'Login to continue',
+                      style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    ),
                     SizedBox(height: 30.h),
-                    _inputFields(),
-                    _forgotPassword(context),
+                    CustomTextField(
+                      hintText: "Email",
+                      prefixIcon: Icons.email,
+                      controller: emailController,
+                    ),
+                    SizedBox(height: 10.h),
+                    CustomTextField(
+                      hintText: "password",
+                      prefixIcon: Icons.key,
+                      controller: passwordController,
+                      isPassword: true,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 20.h),
-                    _loginButton(),
+                    CustomButton(
+                      text: 'Login',
+                      onPressed: () {
+                        print("Login clicked");
+                      },
+                    ),
                     SizedBox(height: 20.h),
-                    _signup(context),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Don't have an account? "),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => SignupPage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(color: Color(0xFF1565C0)),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -34,105 +96,6 @@ class LoginPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _header() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Welcome Back!',
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 8),
-        Text(
-          'Login to continue',
-          style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-        ),
-      ],
-    );
-  }
-
-  Widget _inputFields() {
-    return Column(
-      children: [
-        TextField(
-          decoration: InputDecoration(
-            hintText: 'Email',
-            prefixIcon: Icon(Icons.email),
-            filled: true,
-            fillColor: const Color(0xFFE3F2FD),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide.none,
-            ),
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            hintText: 'Password',
-            prefixIcon: Icon(Icons.lock),
-            filled: true,
-            fillColor: const Color(0xFFE3F2FD),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide.none,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _forgotPassword(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () {},
-        child: Text(
-          'Forgot Password?',
-          style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-        ),
-      ),
-    );
-  }
-
-  Widget _loginButton() {
-    return SizedBox(
-      height: 48,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF1565C0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-        child: Text(
-          'Login',
-          style: TextStyle(fontSize: 18, color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  Widget _signup(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Don't have an account? "),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => SignupPage()),
-            );
-          },
-          child: Text('Sign Up', style: TextStyle(color: Color(0xFF1565C0))),
-        ),
-      ],
     );
   }
 }
