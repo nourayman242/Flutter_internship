@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:login/constants.dart';
-import 'package:login/custom_button.dart';
-import 'package:login/custom_field.dart';
-import 'package:login/signup_page.dart';
+import 'package:login/widgets/custom_button.dart';
+import 'package:login/widgets/custom_field.dart';
+import 'package:login/screens/signup_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
